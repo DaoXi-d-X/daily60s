@@ -11,7 +11,7 @@ text_url = "https://api.03c3.cn/api/zb?type=text" # Invalid
 text_response = requests.get(text_url)
 content = text_response.text
 
-pushplus_url = "https://www.pushplus.plus//send"
+pushplus_url = "http://www.pushplus.plus//send"
 
 pushplus_data = {
     "token": "677889bab50d44a3ae7004b672a77112",
