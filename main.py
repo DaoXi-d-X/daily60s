@@ -11,9 +11,9 @@ date = data.get('result', {}).get('date', '未知日期')  # 从"result"字典�
 news_list = data.get('result', {}).get('news', [])  # 从"result"字典中提取"news"列表
 weiyu = data.get('result', {}).get('weiyu', '无微语')  # 从顶层字典中提取"weiyu"
 imageURL = data.get('result', {}).get('image', '无image')  # 从顶层字典中提取"weiyu"
-news_str = "\n".join(news_list)
+news_str = "\n\n".join(news_list)
 # 将"date"、"news"和"weiyu"合并为一个列表
-combined_data = f"{date}\n{news_str}\n{weiyu}"
+combined_data = f"{date}\n\n{news_str}\n\n{weiyu}"
 
 pushplus_token = os.environ.get('pushplus_token')
 topic = os.environ.get('topic')
