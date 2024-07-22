@@ -1,15 +1,23 @@
 import os
 import requests
 
+url = "https://api.oioweb.cn/api/common/today?type=text"
+response = requests.get(url)
+response.raise_for_status()  # 检查请求是否成功
+# 解析响应内容为JSON
+data = response.json()
+# 从响应中提取"date"、"news"和"weiyu"
+date = data.get('result', {}).get('date', '未知日期')  # 从"result"字典中提取"date"
+news = data.get('result', {}).get('news', [])  # 从"result"字典中提取"news"
+weiyu = data.get('result', {}).get('weiyu', '无微语')  # 从顶层字典中提取"weiyu"
+imageURL = data.get('result', {}).get('image', '无image')  # 从顶层字典中提取"weiyu"
+# 将"date"、"news"和"weiyu"合并为一个列表
+combined_data = [date] + news + [weiyu]
+
 pushplus_token = os.environ.get('pushplus_token')
 topic = os.environ.get('topic')
-
-image_url = "https://api.03c3.cn/api/zb"
-
-text_url = "https://api.03c3.cn/api/zb?type=text" # Invalid
-
-text_response = requests.get(text_url)
-content = text_response.text
+image_url = imageURL
+content = combined_data
 
 pushplus_url = "http://www.pushplus.plus//send"
 
@@ -22,3 +30,9 @@ pushplus_data = {
 }
 
 requests.post(pushplus_url, json=pushplus_data)
+
+
+
+
+
+
